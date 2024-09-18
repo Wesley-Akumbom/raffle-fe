@@ -1,38 +1,55 @@
 .header {
-  background-color: #4b0082;
-  padding: 1rem;
+  background-color: #f8f8f8;
+  padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.header-left {
+  display: flex;
   align-items: center;
 }
 
 .header-title {
-  color: white;
-  margin: 0;
-  font-size: 1.5rem;
-}
-
-.btn-signout {
-  background-color: transparent;
-  color: white;
-  border: 1px solid white;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.btn-signout:hover {
-  background-color: white;
   color: #4b0082;
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  margin-right: 1rem;
 }
 
-@media (max-width: 768px) {
-  .header {
-    flex-direction: column;
-    text-align: center;
-  }
+.camera {
+  animation: treeWiggle 2s ease-in-out infinite;
+}
 
-  .header-actions {
-    margin-top: 1rem;
-  }
+@keyframes treeWiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(5deg); }
+  75% { transform: rotate(-5deg); }
+}
+
+.header-nav {
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-link {
+  color: #4b0082;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.nav-link:hover {
+  background-color: #e6e6fa;
+}
+
+.logout-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
 }
