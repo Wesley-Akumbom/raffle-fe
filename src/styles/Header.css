@@ -1,0 +1,38 @@
+.header {
+  background-color: #4b0082;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-title {
+  color: white;
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.btn-signout {
+  background-color: transparent;
+  color: white;
+  border: 1px solid white;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-signout:hover {
+  background-color: white;
+  color: #4b0082;
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .header-actions {
+    margin-top: 1rem;
+  }
+}
