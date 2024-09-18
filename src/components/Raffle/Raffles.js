@@ -1,7 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import axiosInstance from '../../axiosInstance';
 import { Link } from 'react-router-dom';
-import '../../styles/Home.css'; // Import CSS for consistent styling
+import '../../styles/Raffles.css';
+
+const RaffleCard = ({ raffle }) => {
+  return (
+    <div className="raffle-card">
+      <h3>{raffle.name}</h3>
+      <img src={`http://localhost:8000${raffle.prize_img}`} alt={raffle.prize_name} />
+      <p>Prize Name: {raffle.prize_name}</p>
+      <p>Number of Winners: {raffle.num_winners}</p>
+      <div className="button-container">
+        <Link to={`/raffles/${raffle.id}`}>
+          <button className="view-raffle-btn">
+            <i className="fas fa-info-circle" /> View Details
+          </button>
+        </Link>
+        <button className="buy-ticket-btn">
+          <i className="fas fa-ticket-alt" /> Buy Ticket
+        </button>
+      </div>
+    </div>
+  );
+};
 
 const Raffles = () => {
   const [raffles, setRaffles] = useState([]);
@@ -11,7 +32,7 @@ const Raffles = () => {
   useEffect(() => {
     const fetchRaffles = async () => {
       try {
-        const response = await axiosInstance.get('/raffles/list'); // Adjust the endpoint as needed
+        const response = await axiosInstance.get('/raffles/list');
         setRaffles(response.data);
         setLoading(false);
       } catch (err) {
@@ -32,18 +53,7 @@ const Raffles = () => {
       <h2>Available Raffles</h2>
       <div className="raffle-grid">
         {raffles.map(raffle => (
-          <div key={raffle.id} className="raffle-card">
-            <h3>{raffle.name}</h3>
-            <img src={`http://localhost:8000${raffle.prize_img}`} alt={raffle.prize_name} />
-            <p>Prize Name: {raffle.prize_name}</p>
-            <p>Number of Winners: {raffle.num_winners}</p>
-            <div className="button-container"> {/* Wrap buttons in this div */}
-              <Link to={`/raffles/${raffle.id}`}>
-                <button className="view-raffle-btn">View Details</button>
-              </Link>
-              <button className="buy-ticket-btn">Buy Ticket</button> {/* Add Buy Ticket button */}
-            </div>
-          </div>
+          <RaffleCard key={raffle.id} raffle={raffle} />
         ))}
       </div>
     </div>
