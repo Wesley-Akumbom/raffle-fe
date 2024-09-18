@@ -1,0 +1,42 @@
+.ticket-container {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    max-width: 400px;
+    margin: 40px auto; 
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .pay-btn {
+    background-color: #28a745; /* Green color */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .pay-btn:hover {
+    background-color: #218838; /* Darker green on hover */
+  }
+  
+  .loading {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .error {
+    text-align: center;
+    padding: 20px;
+    color: #f44336; /* Red color */
+  }
+  
+  .fas {
+    margin-right: 10px;
+  }

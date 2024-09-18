@@ -5,7 +5,8 @@ import SignUp from './components/Auth/SignUp';
 import SignIn from './components/Auth/SignIn';
 import Home from './components/Home';
 import RaffleDetail from './components/Raffle/RaffleDetail';
-import Raffles from './components/Raffle/Raffles'; // Import the new Raffles component
+import Raffles from './components/Raffle/Raffles'; 
+import Ticket from './components/Ticket/Ticket'; // Import the new Ticket component
 import './styles/App.css';
 
 function App() {
@@ -57,6 +58,21 @@ function App() {
                 <>
                   <Header />
                   <RaffleDetail />
+                </>
+              ) : (
+                <Navigate to="/signin" replace />
+              )
+            } 
+          />
+
+          {/* New route for Ticket */}
+          <Route 
+            path="/tickets/:id" 
+            element={
+              localStorage.getItem('token') ? (
+                <>
+                  <Header />
+                  <Ticket /> 
                 </>
               ) : (
                 <Navigate to="/signin" replace />

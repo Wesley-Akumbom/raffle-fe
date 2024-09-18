@@ -84,9 +84,11 @@ const Home = () => {
             <h3>{raffle.raffle_name}</h3>
             <p>Number of tickets: {raffle.ticket_count}</p>
             <p>Draw Date: {new Date('01/12/2024').toLocaleDateString()}</p>
-            <button className="view-raffle-btn">
-              <Link to={`/api/raffles/${raffle.id}`}  style={{textDecoration: 'none'}}>View Details</Link>
-            </button>
+            <Link to={`/raffles/${raffle.id}`}>
+          <button className="view-raffle-btn">
+            <i className="fas fa-info-circle" /> View Details
+          </button>
+        </Link>
           </div>
         ))}
       </div>

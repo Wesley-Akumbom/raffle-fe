@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axiosInstance from '../../axiosInstance';
 import { Link } from 'react-router-dom';
-import '../../styles/Raffles.css';
+import '../../styles/Raffles.css';  
 
 const RaffleCard = ({ raffle }) => {
   return (
@@ -16,9 +16,10 @@ const RaffleCard = ({ raffle }) => {
             <i className="fas fa-info-circle" /> View Details
           </button>
         </Link>
-        <button className="buy-ticket-btn">
-          <i className="fas fa-ticket-alt" /> Buy Ticket
-        </button>
+        {/* Use ticket_id instead of raffle.id */}
+        <Link to={`/tickets/${raffle.ticket_id}`}>
+           <button className="buy-ticket-btn">Buy Ticket</button>
+         </Link>
       </div>
     </div>
   );
