@@ -5,6 +5,7 @@ import SignUp from './components/Auth/SignUp';
 import SignIn from './components/Auth/SignIn';
 import Home from './components/Home';
 import RaffleDetail from './components/Raffle/RaffleDetail';
+import Raffles from './components/Raffle/Raffles'; // Import the new Raffles component
 import './styles/App.css';
 
 function App() {
@@ -33,9 +34,24 @@ function App() {
             } 
           />
           
+          {/* New route for Raffles */}
+          <Route 
+            path="/raffles" 
+            element={
+              localStorage.getItem('token') ? (
+                <>
+                  <Header />
+                  <Raffles /> {/* Render the Raffles component */}
+                </>
+              ) : (
+                <Navigate to="/signin" replace />
+              )
+            } 
+          />
+
           {/* New route for RaffleDetail */}
           <Route 
-            path="/api/raffles/:id" 
+            path="/raffles/:id" 
             element={
               localStorage.getItem('token') ? (
                 <>

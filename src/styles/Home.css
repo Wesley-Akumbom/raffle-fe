@@ -18,7 +18,12 @@
     border-radius: 8px;
     padding: 1rem;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  }
+    min-height: 250px; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-between; 
+}
+
   
   .raffle-card h3 {
     color: #4b0082;
@@ -48,3 +53,39 @@
   .error {
     color: #d32f2f;
   }
+
+  .buy-ticket-btn {
+    background-color: #28a745; 
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.buy-ticket-btn:hover {
+    background-color: #218838; 
+}
+
+.raffle-card img {
+  width: 100%; 
+  height: 150px; 
+  object-fit: contain; 
+  border-radius: 8px; 
+}
+
+.button-container {
+  display: flex; /* Use flexbox for buttons */
+  justify-content: space-between; /* Space buttons evenly */
+  margin-top: auto; /* Push buttons to the bottom of the card */
+}
+
+.view-raffle-btn,
+.buy-ticket-btn {
+    margin-right: 10px; /* Add right margin to the first button */
+}
+
+.buy-ticket-btn {
+  margin-right: 0; /* No right margin on the last button */
+}
