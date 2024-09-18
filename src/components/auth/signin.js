@@ -24,6 +24,9 @@ const SignIn = () => {
       const token = response.data.access;  // Access token
       localStorage.setItem('token', token);
 
+      // Store the username in localStorage
+      localStorage.setItem('username', username);  // Store the username
+
       // Decode the token to get the user ID
       const decodedToken = JSON.parse(atob(token.split('.')[1]));  // Decoding the JWT payload
       const userId = decodedToken.user_id;  // Extract user_id from the decoded payload
