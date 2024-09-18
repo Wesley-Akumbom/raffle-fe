@@ -1,10 +1,10 @@
-// src/App.js
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Header from './components/Header';
 import SignUp from './components/Auth/SignUp';
 import SignIn from './components/Auth/SignIn';
-import Home from './components/Home'; // You'll need to create this component if it doesn't exist
+import Home from './components/Home';
+import RaffleDetail from './components/Raffle/RaffleDetail';
 import './styles/App.css';
 
 function App() {
@@ -26,6 +26,21 @@ function App() {
                 <>
                   <Header />
                   <Home />
+                </>
+              ) : (
+                <Navigate to="/signin" replace />
+              )
+            } 
+          />
+          
+          {/* New route for RaffleDetail */}
+          <Route 
+            path="/api/raffles/:id" 
+            element={
+              localStorage.getItem('token') ? (
+                <>
+                  <Header />
+                  <RaffleDetail />
                 </>
               ) : (
                 <Navigate to="/signin" replace />

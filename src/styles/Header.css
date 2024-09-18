@@ -32,6 +32,8 @@
 .header-nav {
   display: flex;
   gap: 1rem;
+  color: #570b8e;
+  font-weight: bold;
 }
 
 .nav-link {

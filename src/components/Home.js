@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axiosInstance from '../axiosInstance';
 import '../styles/Home.css';
 
@@ -78,15 +79,17 @@ const Home = () => {
         <p>You haven't entered any raffles yet.</p>
       ) : (
         <div className="raffle-grid">
-          {userRaffles.map(raffle => (
-            <div key={raffle.id} className="raffle-card">
-              <h3>{raffle.raffle_name}</h3>
-              <p>Number of tickets: {raffle.ticket_count}</p>
-              <p>Draw Date: {new Date('01/12/2024').toLocaleDateString()}</p>
-              <button className="view-raffle-btn">View Details</button>
-            </div>
-          ))}
-        </div>
+        {userRaffles.map(raffle => (
+          <div key={raffle.id} className="raffle-card">
+            <h3>{raffle.raffle_name}</h3>
+            <p>Number of tickets: {raffle.ticket_count}</p>
+            <p>Draw Date: {new Date('01/12/2024').toLocaleDateString()}</p>
+            <button className="view-raffle-btn">
+              <Link to={`/api/raffles/${raffle.id}`}  style={{textDecoration: 'none'}}>View Details</Link>
+            </button>
+          </div>
+        ))}
+      </div>
       )}
     </div>
   );
