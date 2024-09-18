@@ -22,26 +22,41 @@ const Home = () => {
         // Fetch user raffles (ticket holders)
         const response = await axiosInstance.get(`/ticket-holders/${userId}`);
         
-        // Map through ticket holders and fetch corresponding ticket and raffle details
+        // Group ticket holders by raffle and count the number of tickets
         const rafflesWithDetails = await Promise.all(response.data.map(async (ticketHolder) => {
           const ticketId = ticketHolder.ticket; // Get ticket ID
           
           // Fetch ticket details to get price and raffle ID
           const ticketResponse = await axiosInstance.get(`/tickets/${ticketId}`);
-          console.log('Ticket response:', ticketResponse);
-          console.log('Ticket response data:', ticketResponse.data);
           const raffleId = ticketResponse.data.raffle; // Get raffle ID
-          console.log('Raffle ID:', raffleId);
+          
           // Fetch raffle details using the raffle ID
           const raffleResponse = await axiosInstance.get(`/raffles/${raffleId}`); 
           
           return {
-            ...ticketHolder,
+            id: raffleId,
             raffle_name: raffleResponse.data.name, // Get raffle name from raffle response
+            ticket_count: 1, // Initialize ticket count to 1
           };
         }));
 
-        setUserRaffles(rafflesWithDetails);
+        // Group raffles and count the number of tickets
+        const groupedRaffles = {};
+        rafflesWithDetails.forEach((raffle) => {
+          if (!groupedRaffles[raffle.id]) {
+            groupedRaffles[raffle.id] = {
+              id: raffle.id,
+              raffle_name: raffle.raffle_name,
+              ticket_count: 0,
+            };
+          }
+          groupedRaffles[raffle.id].ticket_count++;
+        });
+
+        // Convert grouped raffles object to array
+        const rafflesArray = Object.values(groupedRaffles);
+
+        setUserRaffles(rafflesArray);
         setLoading(false);
       } catch (err) {
         console.error('Error fetching user raffles:', err); // Log the error to the console
@@ -66,6 +81,7 @@ const Home = () => {
           {userRaffles.map(raffle => (
             <div key={raffle.id} className="raffle-card">
               <h3>{raffle.raffle_name}</h3>
+              <p>Number of tickets: {raffle.ticket_count}</p>
               <p>Draw Date: {new Date('01/12/2024').toLocaleDateString()}</p>
               <button className="view-raffle-btn">View Details</button>
             </div>
