@@ -8,6 +8,7 @@ import RaffleDetail from './components/Raffle/RaffleDetail';
 import Raffles from './components/Raffle/Raffles'; 
 import Ticket from './components/Ticket/Ticket'; // Import the new Ticket component
 import './styles/App.css';
+import Success from 'components/Success';
 
 function App() {
   return (
@@ -79,6 +80,22 @@ function App() {
               )
             } 
           />
+
+           {/* New route for Success Page */}
+           <Route 
+            path="/success" 
+            element={
+              localStorage.getItem('token') ? (
+                <>
+                  <Header />
+                  <Success />
+                </>
+              ) : (
+                <Navigate to="/signin" replace />
+              )
+            } 
+          />
+
         </Routes>
       </div>
     </Router>

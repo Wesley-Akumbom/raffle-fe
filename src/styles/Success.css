@@ -1,0 +1,17 @@
+.success-container {
+    text-align: center;
+    margin-top: 50px;
+  }
+  
+  .success-icon {
+    color: green;
+    font-size: 50px;
+    margin-top: 20px;
+  }
+  
+  .payment-status {
+    margin-top: 20px;
+    font-size: 18px;
+    color: green;
+  }
+  

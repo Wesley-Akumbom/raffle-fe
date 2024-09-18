@@ -1,25 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';  // Import useNavigate
 import axiosInstance from '../../axiosInstance';
 import '../../styles/Tickets.css';
 
 const Ticket = () => {
-  const { id } = useParams(); // Get the ticket ID from route parameters
+  const { id } = useParams();  // Get the ticket ID from route parameters
   const [ticket, setTicket] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [paymentStatus, setPaymentStatus] = useState('');  // Track payment status
+  const navigate = useNavigate();  // Use navigate for routing
 
   useEffect(() => {
     const fetchTicket = async () => {
       try {
-        console.log(`Fetching: /tickets/${id}`);
-        // Adjusted endpoint to fetch ticket information
         const response = await axiosInstance.get(`/tickets/${id}`);
         setTicket(response.data);
-        
-        // Print the ticket price to console
-        console.log('Ticket Price:', response.data.price);
-
         setLoading(false);
       } catch (err) {
         console.error('Error fetching ticket:', err);
@@ -31,22 +27,39 @@ const Ticket = () => {
     fetchTicket();
   }, [id]);
 
-  if (loading) return (
-    <div className="loading">
-      <i className="fas fa-spinner fa-spin"></i> Loading...
-    </div>
-  );
-  if (error) return (
-    <div className="error">
-      <i className="fas fa-exclamation-triangle"></i> {error}
-    </div>
-  );
+  // Function to handle payment
+  const handlePayment = async () => {
+    try {
+      const response = await axiosInstance.post('/payments/purchase/', {
+        ticket_id: id,
+        payment_method_id: 'pm_card_visa'  // Assuming a test payment method
+      });
+
+      if (response.data.payment.payment_status === 'succeeded') {
+        setPaymentStatus('Payment successful!');
+        navigate('/success');  // Navigate to the success page
+      } else {
+        setPaymentStatus('Payment failed. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error processing payment:', error);
+      setPaymentStatus('Payment failed. Please try again.');
+    }
+  };
+
+  if (loading) return <div className="loading">Loading...</div>;
+  if (error) return <div className="error">{error}</div>;
 
   return (
     <div className="ticket-container">
       <h2>Buy Ticket for {ticket.name}</h2>
       <p>Price: ${ticket.price}</p> 
-      <button className="pay-btn">
+
+      {/* Payment status message */}
+      {paymentStatus && <p className="payment-status">{paymentStatus}</p>}
+
+      {/* Button to initiate payment */}
+      <button className="pay-btn" onClick={handlePayment}>
         <i className="fas fa-credit-card"></i> Pay Now
       </button>
     </div>
